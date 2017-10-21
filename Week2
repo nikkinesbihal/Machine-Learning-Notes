@@ -1,0 +1,34 @@
+LINEAR REGRESSION WITH MULTIPLE VARIABLES
+
+Multivariate Linear Regression
+Features are differentiated with different subscripts, j
+Training examples, with superscript, i
+n - number of features
+m - number of training examples
+hsubtheta(x) = thetanot + thetasub1xsub1...thetasubnxsubn
+feature vector is n+1 dimensional w/ 0 index
+hsubtheta(x) = thetatransposex
+costfunction= J(theta) = 
+    1/2m sumi (hsubtheta(x^1-y^i)^2
+    1/2m sumi (thetatransx^i iy^i)^2
+    1/2m sumi((sumjthetajxj^i)-y^i)^2
+simultateously update for every j=0, over n features
+    thetaj := thetaj - alpha 1/m sumi (htheta(x^i)-y^i) * xj^i for j:= 0...n
+with multiple features, make sure they take on a similar range -1<= xi <= 1 or -.5<=xi<=.5
+Feature scaling involves dividing the input values my the range of input variable
+Mean normalization involves subtracting the average value for an input variable of 0
+      xi := (xi - avgi)/rangei
+To debug gradient decent, plot iterations on xaxis and cost function over the number of iterations. J should not increase... decrease alpha
+Automatic convergence test: declare convergence if J decreases by less than ~10^-3 in one iteration
+You can combine features by multiplying them into a new one
+If a striaght line doesnt fit well you can add powers to your feature and then make it a new x.... x1^2=x2 but watch out for feature scaling
+
+Computing Parameters Analytically
+Normal equation gives us  method to silve for theta analytically
+solve for theta when dJ/dtheta = 0
+to implement...
+make a m by n+1 matrix X of features, including x0. make a m dim vector Y of y's
+  A=XtransX
+  minimized theta - (XtransX)^-1 Xtransy   in octave: pinv(X'*X)*X'*y
+Use gradient descent when you need to choose alpha and need many iterations, choose normal equation when you don't  (n~10k boundary)
+if A is non invertible, it might be because you have redundant features (they are linearly dependent) or you may have too many features
