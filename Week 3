@@ -1,0 +1,56 @@
+CLASSIFICATION AND REPRESENTATION
+Right now we're using linear regression, bad idea 
+y>=.5 , 1 positive class 
+y<.5 , 0 negative glass
+we want h to be between 0 and 1
+we are switching to logistic regression
+htheta(x) = g(thetatrans*x) which is the sigmoid/logistic function where g(z) = 1/ (1+e^-z), z = thetatrans*x
+htheta(x) is the estimated proabability that y=1 for input x.  Probability is parameteried by theta
+hthetatrans = g >= .5 when z >=0  (z replaces h, same function)
+Draw decision boundary using theta0 + theta1x1 + .... equation
+
+LOGISTIC REGRESSION MODEL
+linear cost(htheta(x),y)=1/2(htheta(x) - y)^2
+logistic cost(htheta(x),y) = -y*log(htheta(x))-(1-y)*log(1-htheta(x)), pull -1 in front of summatiopn
+Cost(hθ(x),y)=0 if hθ(x)=y
+Cost(hθ(x),y)→∞ if y=0andhθ(x)→1
+Cost(hθ(x),y)→∞ if y=1andhθ(x)→0
+J(theta) = 1/m summ cost(htheta(x),y)
+minthetaJ(theta): repeat { thetaj := thetaj - alpha summ (htheta(x^i)-y^i)xj^i
+  even though this looks like linear regression, the definition of the hypothesis is different
+vectorized: theta:= theta - (alpha/m) * Xtrans *(g(X*theta)-yvec)
+advanced optimization:
+  conjugate gradient, BFGS, L-BFGS
+We first need to provide a function that evaluates J and partialJ
+  function [jVal, gradient] = costFunction(theta)
+    jVal = [...code to compute J(theta)...];
+    gradient = [...code to compute derivative of J(theta)...];
+  end
+Then we can use octave's "fminunc()" optimization algorithm along with the "optimset()" function that creates an object containing the options we want to send to "fminunc()". 
+  options = optimset('GradObj', 'on', 'MaxIter', 100);
+    initialTheta = zeros(2,1);
+      [optTheta, functionVal, exitFlag] = fminunc(@costFunction, initialTheta, 
+        options);
+We give to the function "fminunc()" our cost function, our initial vector of theta values, and the "options" object that we created beforehand.
+
+MULTICLASS CLASSIFICATION
+one vs all (one vs rest)
+y∈{0,1...n}
+h(0)θ(x)=P(y=0|x;θ)
+h(1)θ(x)=P(y=1|x;θ)⋯
+h(n)θ(x)=P(y=n|x;θ)
+prediction=maxi(h(i)θ(x))
+
+SOLVING THE OVERFITTING PROBLEM
+adding an extra feature with higher order can help shape y, but if we add too high, you don't get trend, just connect the dots
+underfitting = high bias, when we use a function that is too simple or has too few features
+overfitting = high variance, when we have a complicated function, solve by reducing number of features or reduce magnitude of features (regularization)
+modify the cost function to reduce higher order features but multiplying them by 1000
+minθ 1/(2m) summ(hθ(x^i)−y^i)^2+ λ *sumnθj^2 where theta is the regularization parameter
+new gradient descent:
+  θj:=θj(1−α*(λ/m))−α*(1/m)summ(hθ(x^i)−y^i)*xj^i
+there is also another approach to regularization, using the non-iterative normal equation
+  θ=(Xtrans*X+λ⋅L)^(−1)*Xtrans*y where L is the identity matrix but missing the very first 1
+regularized J(theta):
+   J(θ)=(−1/m)* summ[y^i * log(hθ(x^i))+(1−y^i) * log(1−hθ(x^i))]+(λ/2m)* sumn(thetaj^2)
+    that last sumn means to explicitly exclude the bias term, theta0, ie the theta vector is indexed from  from 0 to n
