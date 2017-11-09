@@ -1,0 +1,16 @@
+COST FUNCTION AND BACKPROPOGATION
+L = total number of layers in network
+sl = number of units (not counting bias unit) in layer l
+K classes... K output units
+h(x)i = ith output of k dim vector
+J(Θ)=−1/m*summ(sumk[yk^i * log((hΘ(x^i))subk)+(1−yk^i)*log(1−(hΘ(x^i))subk)]
+                                      +λ/2m * sumltoL-1(sumitosj(sumjtosj+1(Θ(j,i)^l)^2
+In the regularization part we must account for multiple theta matrices. The number of columns in our current theta matrix is equal to the number of nodes in our current layer (including the bias unit). The number of rows in our current theta matrix is equal to the number of nodes in the next layer (excluding the bias unit). As before with logistic regression, we square every term.
+the double sum simply adds up the logistic regression costs calculated for each cell in the output layer
+the triple sum simply adds up the squares of all the individual Θs in the entire network.
+the i in the triple sum does not refer to training example i
+
+
+        
+BACKPROPOGATION IN PRACTICE
+APPLICATION OF NEURAL NETWORKS
