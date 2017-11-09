@@ -1,0 +1,40 @@
+MOTIVATIONS
+Non-linear Hypotheses
+subsets of features because when you have a lot, the combinatins because computationally expensive
+neural network popularity diminished in the 90s but is making a comeback. they are computationally expensive because good computers
+
+NEURAL NETWORKS
+Neural model: logistic unit
+x0 node : bias unit or bias node, always equal to 1, used for the sake of notation
+sigmoid (logistic) activation function: g(z)
+weights = parameters
+Layer 1 = input layer
+Middle layers = hidden layers
+Last layer = output layer
+aj^i = "activation" of unit i in layer j
+THETA^j = matrix of weights controlling function mapping from layer j to layer j+1
+If a network has sj units in layer j, sj+1 units in layer j+1, then THETA^j will be of dimension s(j+1) X (sj + 1)
+   a1^2=g(Θ10^1*x0 + Θ11^1*x1 + Θ(1)12x2 + Θ(1)13x3)
+   a2^2=g(Θ20^1*x0 + Θ21^1*x1 + Θ(1)22x2 + Θ(1)23x3)
+   a3^2=g(Θ30^1*x0 + Θ31^1*x1 + Θ(1)32x2 + Θ(1)33x3)
+   hΘ(x)=a1^3=g(Θ10^2*a0^2 + Θ11^2*a1^2 + Θ12^2*a2^2 + Θ13^2*a3^2)
+              aj^i = g(...) = g(zj^i)           
+                          zk^2=Θk,0^1 * x0 + Θk,1^1 * x1 +⋯+ Θk,n^1 * xn
+                          z(j)=Θ^(j−1)* a^(j−1)
+               Forward propogation : vectorized implementation           
+We are multiplying our matrix Θ^(j−1) with dimensions sj×(n+1) (where sj is the number of our activation nodes) by our vector a^(j−1) with height (n+1). This gives us our vector z^j with height sj. Now we can get a vector of our activation nodes for layer j as follows:
+          a^j=g(z^j) Where our function g can be applied element-wise to our vector z^j.
+We can then add a bias unit to layer j after we have computed a^j. This will be element a0^j and will be equal to 1. To compute our final hypothesis, let's first compute another z vector:
+          z^(j+1)=Θ^(j) * a^(j)
+We get this final z vector by multiplying the next theta matrix after Θ(j−1) with the values of all the activation nodes we just got. This last theta matrix Θ^(j) will have only one row which is multiplied by one column a^(j) so that our result is a single number. We then get our final result with:
+          hΘ^(x)=a^(j+1)=g(z^(j+1))
+between layer j and layer j+1, we are doing exactly the same thing as we did in logistic regression. Adding all these intermediate layers in neural networks allows us to more elegantly produce interesting and more complex non-linear hypotheses.
+    layer 2 is full of learned features that get passed to logistic regression
+architecture: how nodes, neurons are connected to each other    
+
+APPLICATIONS
+Nonlinear classification: XOR/XNOR ... just make truth tables
+negatively weight variables you want to negate
+so to do xnor, do AND weights to one a1^2 and NOTAND weights to a2^2
+Multiclass Classification
+y is vectors that are resulting classes. each y^i (the vectors are htheta(x) vectors that came out od the neural network) represents a different image corresponding to either a car, pedestrian, truck, or motorcycle. The inner layers, each provide us with some new information which leads to our final hypothesis function. The setup looks like:
