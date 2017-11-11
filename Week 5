@@ -9,8 +9,33 @@ In the regularization part we must account for multiple theta matrices. The numb
 the double sum simply adds up the logistic regression costs calculated for each cell in the output layer
 the triple sum simply adds up the squares of all the individual Θs in the entire network.
 the i in the triple sum does not refer to training example i
+forward propoation:
+a=x
+z=theta*a
+a2=g(z2)
+z3=theta2*a2
+.....(given one training example)
+gradient computation:back propogation
+back propogation is a neural network term for minimizing our cost funtion, just like what we were doing with gradient descent in logistiv and linear regression
+delj^4=aj^4-yj   hypothesis - output... obvious error calc
+del^3=theta^3trans*del^4.*(a^3.*(1-a^3))
+del^2=theta^2trans*del^3.*(a^2.*(1-a^2))
+partilJ(theta) = aj^l*deli^(l+1) ignoring lambda
+for full training set...
+DELij^l = 0 (for all l,i,j) .. these serve as accumulators
+For i=1 to m,
+  set a^1=x^i
+  perform forward prop to compute a^l for l 1 to L
+  Use y^i to compute del^L = a^L-y^i
+  compute del ^(L_1), del^(L-2),...,del^2
+  DELij^l := DELij^l + aj^l * deli^(l+1)
+Dij^l := 1/m * DELij^l + lambda*thetaij^l (no lambda when j=0) (this is your the partial)
+Summary...
+1.  a^1 := x^t
+2. FP a^l
+3. del^L = a^L - y^t
+4. all dels
+5. DEL, which we then use to update D accumulator matrix, eventually computering our partial derivative
 
-
-        
 BACKPROPOGATION IN PRACTICE
 APPLICATION OF NEURAL NETWORKS
