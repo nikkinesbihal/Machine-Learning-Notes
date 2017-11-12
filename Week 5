@@ -82,6 +82,4 @@ Training a neural network
 6. Use gradient descent or advanced optimization method with backpropogation to try to minimize J(theta) as a function of parameters... J(theta) is susceptible to local optima, but thi s isn't a huge problem in practice
 
   
- 
-  
-APPLICATION OF NEURAL NETWORKS
+REVEIW THIS EXERCISE MORE
