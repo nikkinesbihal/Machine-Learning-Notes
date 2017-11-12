@@ -38,4 +38,50 @@ Summary...
 5. DEL, which we then use to update D accumulator matrix, eventually computering our partial derivative
 
 BACKPROPOGATION IN PRACTICE
+Unrolling Parameters
+You need to unroll parameters from matrices to vectors to use advanced optimization techniques
+thetavec = [theta1(:);theta2(:);theta3(:)];
+Theta1 = reshape(thetavec(1:110),10,11);
+  Learning Algorithm
+  Have initial parameters theta^1, theta^2, theta^3
+  Unroll to het initialTheta to pass to
+  fminunc(@costFunction, initialTheta, options)
+    function [jval, gradientVec] = costfunction (thetavec)
+        From thetavec get theta^1, etc
+        Use forward prop/back prop to compute D^1, D^2, D^3, and J(theta)
+        Unroll D^1, D^2, D63 to get gradientVec
+Gradient Checking
+numerical estimate: gradapprox = (J(thet+epsilon)-J(theta-epsilon))/(2*epsilon)
+  for i=1:n,
+    thetplus = theta;
+    thetaplus(i) = thetplus(i) +epsilon;
+    thetaminus=theta;
+    thetaminus(i) = thetaminus(i) - epsilon;
+    gradapprox(i) = (J(thetaplus) - J(thetaminus))/(2*epsilon);
+  end;
+check that gradapprox~=DVec (from backprop)
+1. implement backprop to compute Dvec
+2. implement numerical gradient check to compute gradapprox
+3. check against each other
+4. turn off gradient checking before training the classifier
+Random Initialization
+itialize each theta to a random value from negative epsilon to positive epsilon 
+  theta1 - rand(10,11) * (2*init_epsilon) - init_epsilon;
+Putting it All Together
+Training a neural network
+0. Pick an architecture (reasonable default is one hidden layer. if you use more than one, keep he same number of hidden units in each layer)
+1. randomly initiale weights
+2. Implement forward prop to get htheta(x^i)
+3. implement code to get the cost function
+4. implement backprop to compute partial derivatives
+    for i=1:m
+      permorm forward prop and back prop using example (x^i,y^i)
+      (get activations a^l) and delta terms del^l for l(2:L))
+      Delta^l := Delta^l + del^(l^1) * a^l)trans
+5. Use gradient checking to compare partialJ computed using back prop vs numerical estimate of gradient of J(theta)disable gradient chekcing
+6. Use gradient descent or advanced optimization method with backpropogation to try to minimize J(theta) as a function of parameters... J(theta) is susceptible to local optima, but thi s isn't a huge problem in practice
+
+  
+ 
+  
 APPLICATION OF NEURAL NETWORKS
