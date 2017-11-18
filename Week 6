@@ -1,0 +1,36 @@
+EVALUATING A LEARNING ALGORITHM
+IF you have unexpectedly large errors in predictions try: more training examples, smaller set of features, additional features, adding polynomial features, decreasing lambda, increasing lambda
+Machine learning diagnotic: test you can run to gain insight what is/isn't working with a learning azStandard way to evaluate hypothesis: Training set (70%) Test set (30%)  mtest = # of training examples
+Training/testing procedue:  learn parameter theta from training set, then compute test set error: Jtest(theta) = 1/2mtest summtest (h(xtest)-test)^2
+Training/testing for logistic regression: same as normal but with misclassification error err(h(x),y) = 1 if h(x) >=.5, y=0 or if h(x)<.5, y=1
+    Test error = 1/test summtest (err()) gives us the proportion of test data that was misclassified
+d=degree of polynomial
+don't just train parameters on training set...split data set into 3 groups: Training set (60%), cross validation (cv) set(20%), test set (20%)
+mcv = number in cross validation set
+Minimize J on each model, then test them on the cross validation set (by calculating Jcv)
+
+BIAS V VARIANCE
+Plot degree of polynomial vs training error,cross validation error
+Training error tends to decrease as we uncrease d whicle cv decreases at first and then increases
+    Bias (underfit) : Jtrain, Jcv error both high, large lambda
+    Variance (overfit) : Jtrain error low, Jcv error high, Jcv>>Jtrain, small lambda
+Minimize J for each choice of lambda, then test on the cross validation set (by calculating Jcv)
+Plot lambda v training error, cross validation error
+Training error tends to increase as we increase lambda while cv decreases at first and then decreases
+    don't use lambda with Jcv(theta)
+Plot m vs training error, cross validation error
+    Bias: Jcv is high and stays high (flattening out), Jtrain starts small and approaches Jcv (flattening out)
+    Variance: Jtrain starts small, increases but stays low (flattening out), Jcv starts high, decreases but stays high (flattening out)
+        they are converging slowly
+To fix high variance: more training examples, smaller set of features, increase lambda
+To fix high bias: add features, add polynomial features, decrease lambda
+A neural network with fewer parameters is prone to underfitting and it is computationally cheaper
+A larger neural network with more parameters is prone to overfitting and it is computationally expensive.  Add regularization
+Using a signle hidden later is a good starting default.  Train your neural network on a number of hidden layers using your cross validation set, then select the one that performs best
+Lower order polynomials (low model complexity) have high bias and low variance. The model fits poorly, consistently
+Higher order polynomials (high model complexity) fit the training data extremely well and the test data extremely pooryly.  They have low bias on the training data but very high variance
+In reality we would want to choose a model in between
+
+BUILDING A SPAM CLASSIFIER
+HANDLING SKEWED DATA
+USING LARGE DATA SETS
