@@ -32,5 +32,33 @@ Higher order polynomials (high model complexity) fit the training data extremely
 In reality we would want to choose a model in between
 
 BUILDING A SPAM CLASSIFIER
+Supervised learning
+    x=features of email(choose words), y=spam or not spam
+    Given a data set of emails, we could construct a vector for each email. Each entry in this vector represents a word. The vector normally contains 10,000 to 50,000 entries gathered by finding the most frequently used words in our data set. 
+    If a word is to be found in the email, we would assign its respective entry a 1, else if it is not found, that entry would be a 0. Once we have all our x vectors ready, we train our algorithm and finally, we could use it to classify if an email is a spam or not.
+honeypot project
+develop sophisticated features based on email routing info from email header
+develop sophisticated features for message body 
+develop sophisticated algorithm for misspellings
+Error Analysis:
+- Start with simple algorithm that you can implement quickly, Test on cv set
+- Plot learning curved to decide if more data, more features, ets are likely to hel
+- manually examine the examples in cv set that your algorithm made errors on, see if you spot any systematic trend in what type of examples it is making errors on
+stemming software lets you treat words with the same stem the same stem but think about universe/university
+    need numerical evaluation (cv error eG) of algorithms performance with and without stemming
+    
 HANDLING SKEWED DATA
+When ratio of pos to neg examples is very high or very low, it's a skewed class
+y=1 in presence of rare class, 2x2 sq of actual class vs predicted class, true pos, true neg, false pos, false neg
+Precision - of all patients we predicted y=1, what fraction actually has cancer? truepos/(truepos + false pos)
+Recall - of all patients that actually have cancer, what fraction did we corretly detect as having cancer? truepos/(truepos+falseneg)
+you can raise the boudary higher than .5 to have higher confidence. has higher precision, but lower recall
+to avoid false negatives, lower the boundary instead...higher recall, lower prescision
+F score: 2* (PR)/(P+R)
+
 USING LARGE DATA SETS
+Use learning algorithm with many parameters
+    low bias
+Use a very large training set
+    low variance
+ 
