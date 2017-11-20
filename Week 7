@@ -1,0 +1,8 @@
+LARGE MARGIN CLASSIFICATION
+If y=1, we want thetatrans*x >> 0 and vice versa
+Support vector machine: replace the log terms with cost functions that are just straightened out graphs where the line is flat at 0 before -1 and after1
+minC summ y^i * cost (thetatrans*x^i) + (1-y^i)*cost(thetatrans*x^i) + 1/2 * sumn(thetaj^2)
+  C=1/lambda
+
+KERNELS
+SVMs IN PRACTICE
