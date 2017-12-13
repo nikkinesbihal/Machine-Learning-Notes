@@ -15,6 +15,22 @@ landmarks can be new features
 sig isparameter for f graph
 Train:
 minCsumm(y^i*cost1(thetatrans*f^i)+(1-y^i)*cost0(thetatrans*f^i) + 1/2*summ(thetaj^2)
-last term = thetatrans*theta where theta is 1:m = thetatrans*Mtheta (matrix within theta
+last term = thetatrans*theta where theta is 1:m = thetatrans*Mtheta (matrix within theta, allows scaling to much bigger training sets)
+Large C (1/lambda): low bias, high variance, small lambda
+Small C: high bias, low variance, large lambda
+Large sigsqq: features fi vary more smoothly. high bias, low variance
+small sigsq: features fi vary less smoothly. lower bias, higher variance
 
 SVMs IN PRACTICE
+When you use SVM software packange... need to specify choice of parameter C and choice of kernel (similarity function)
+  eg no kernel ("linear kernel") : predict y=1 if thetatrans*c>=0 : n large, m small 
+  gaussian kernel : fi=exp(-(||x-l^i||^2)/(2*sigsq)) where l^i = x^i : need to choose sigsq : when n is small, m is large
+  do perform feature scaling before using gaussian kernel
+  not all similarity functions make valid kernels, they need to satisfy "Mercer's Theorem"
+  polynomial kernel : (xtrans*l + const)^deg
+  string kernel, chi squared kernel, histrogram intersection kernel
+If SVM package sdoesnt have built in multi class classification, use one v all method (train k svms, one to distinguish y=i from the rest), get thetas pick class i with largets thetatransx
+If n > m, use logistic regression or SVM without kernel (linear kernel)
+if n is small, m is intermediate, use SVM with Gaussian kernel
+If n is small, m is large, create/add more features, then use logistic regression or svm without a kernel
+Neural network likely to work well for most of these settings but may be slower to train
