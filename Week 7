@@ -7,8 +7,14 @@ if we want y=1, we want thetatrans*x>=1 (not just 0)
 if we want thetatrans*x<=-1
 Linearly separable case: margin of the SVM is how far your decision boundary is from your training examples
 Large margin classifier
-Go Back To Math
+Math:
 
 KERNELS
+f1 = similarity(x,l^1) = exp(- (||x-l^1||)/2sig^2) is a kernel, will be close to zero when x is far, 1 if it is close
+landmarks can be new features
+sig isparameter for f graph
+Train:
+minCsumm(y^i*cost1(thetatrans*f^i)+(1-y^i)*cost0(thetatrans*f^i) + 1/2*summ(thetaj^2)
+last term = thetatrans*theta where theta is 1:m = thetatrans*Mtheta (matrix within theta
 
 SVMs IN PRACTICE
