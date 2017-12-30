@@ -32,10 +32,12 @@ Choosing number of clusters
 Elbow method:when the rate of decrease of the cost function slows down
 You can also evaluate kmeans based on a metric for how well it performs for that later purpose
 
+DIMENSIONALITY REDUCTION
 MOTIVATION
-Data Compression/Dimensionality Reduction
+Data Compression
 Reduce 2d to 1d, z is new feature for location of point
 Suppose we apply dimensionality reduction to a dataset of m examples {x^1,...x^m} where x^i is within R^n. As a result of this, we will get out a lower dimensional dataset {z^1,...,z^m} of m examples where z^i is within R^k for some value k and k<=n 
 Visualization
+z's are summaries of other dimensions, look for pattern
 PRINCIPAL COMPONENT ANALYSIS 
 APPLYING PCA
