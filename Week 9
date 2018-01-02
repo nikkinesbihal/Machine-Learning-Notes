@@ -1,0 +1,18 @@
+DENSITY ESTIMATION
+normal dataset... is xtest anomalous? p(xtest)< sig flag anomaly
+use for fraud detection: x^i = features of user i's activities, model p(x) from data, identify users by checking which have <eta
+    manufaturing, monitoring computers in a data center
+If x is a distributed Gaussian with mean mu, variance sig^2 : x ~ Norm(mu,sig^2)
+p(x;mu,sig^2)=1/(sqrt(2pi)*sig) * exp(- (x-mu)^2/(2sig^2)
+sigj^2 = 1/m summ(xj^i - muj)^2
+p(x) = piprodn p(xj;muj,sigj^2)
+muj=1/m summ xj^i
+Algorithm:
+1. Choose features xi that you think might be indicative of anomalous examples
+2. fit parameers mu1, ..., mun,sig1^2,...,sign^2
+3. Given new example x, compute p(x)...anomaly if p(x) < eta
+BUILDING ANOMALY DETECTION SYSTEM
+MULTIVARIATE GAUSSIAN DISTRIBUTION
+PREDICTING MOVIE RATINGS
+COLLABORATIVE FILTERING
+LOW RANK MATRIX FACTORIZATION
