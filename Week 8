@@ -40,4 +40,32 @@ Suppose we apply dimensionality reduction to a dataset of m examples {x^1,...x^m
 Visualization
 z's are summaries of other dimensions, look for pattern
 PRINCIPAL COMPONENT ANALYSIS 
+projection error - how far the 2d points are from your 1d flattened line
+reduce from n dimensions to k dimension - find k vectors u^1, u^2,...,u^k onto which to project the data so as to miniize the projection error
+preprocessing: featurescaling/mean normalization): muj = 1/m * summ xj^i ; replace each xj^i with xj-muj ; if different features on different scales (size of house, number of bedrooms), scale featers to have similar
+compute "covariance matrix" : Sigma = 1/m sumn (x^i)*(x^i)trans : Sigma is a nxn matrix
+compute eigenvenctors of matrix Sigma: [U,S,V] = svd(Sigma);  U matrix will also be nxn and the columns will be u1, u2 vectors that we need for the projections, take first k vectors
+z = [Ureduce]transx 
+vectorized: Sigma=(1/m) * Xtrans*X
+Ureduce=U(:,1:k);
+z=Ureduce'*x;
+
 APPLYING PCA
+reconstructing from compressed representation: xapprox = Ureduce*z
+k is the number of principle components that we retain, tries to minimize average squared projection error
+to choose k: (long way, without svd)
+try pca w/ k=1
+compute Ureduce, z^1, z^2,...,z^m,xapprox^1,...,xapprox^m
+check if (summ ||x^i-xapprox^i||^2)/(summ||x^i||^2     <= .01 "99% of variance is retained"
+BUT BUT For given k, that variance retained fraction is just (sumk(Sii))/sumn(Sii)) >= .99, vary k to find the smallest satisfying k
+can speed up learning algorithm, (x^1,y^1),...,(x^m,y^m), usually supervised how to:
+    extract inputs: unlabeled dataset x^1...x^m PCA to z1...z^m
+    new training set: (z^1,y^1),...,(z^m,y^m)  feed this to algorithm and learn h
+    PCA is only applied to training set, can apply mapping you find to cv and test set
+ bad use of PCA : To prevent overfitting.  just use regularization instead
+ Design of ML system:
+    - Get training set {(x^1,y^1),...,(x^m,y^m)}
+    - Run PCA to reduce x^i in dimension to get z^i
+    - Train logistic regression on {(z^1,y^1),...,(z^m,y^m)}
+    - Test on test set: Map xtest^i to ztest^i . Run htheta(z) on {(ztest^1, ytest^1,...,(ztest^,,ytest^m)}
+ Before implementing PCA, first try tunning with original x data. If it doesn't work, implement PCA and consider using z^i
