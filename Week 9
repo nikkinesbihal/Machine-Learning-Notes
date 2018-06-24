@@ -1,18 +1,54 @@
 DENSITY ESTIMATION
 normal dataset... is xtest anomalous? p(xtest)< sig flag anomaly
+xj are characteristics of user
 use for fraud detection: x^i = features of user i's activities, model p(x) from data, identify users by checking which have <eta
     manufaturing, monitoring computers in a data center
-If x is a distributed Gaussian with mean mu, variance sig^2 : x ~ Norm(mu,sig^2)
-p(x;mu,sig^2)=1/(sqrt(2pi)*sig) * exp(- (x-mu)^2/(2sig^2)
-sigj^2 = 1/m summ(xj^i - muj)^2
+x~ = "x distributed as"
+If x is a distributed Gaussian with mean parameter mu, variance sig^2 : x ~ Norm(mu,sig^2) sigma (squared is variance)) is half the width "one standar devATION" of bell shape curve
+gaussian density: p(x;mu,sig^2)=1/(sqrt(2pi)*sig) * exp(- (x-mu)^2/(2sig^2)
+estimation sigsq parameter: sigj^2 = 1/m summ(xj^i - muj)^2
 p(x) = piprodn p(xj;muj,sigj^2)
-muj=1/m summ xj^i
+estimating mu parameter: muj=1/m summ xj^i
+"maximum liklihood estimation"
 Algorithm:
+p(x)=all p(xj;muj,sigj^2) mutiplied together
 1. Choose features xi that you think might be indicative of anomalous examples
 2. fit parameers mu1, ..., mun,sig1^2,...,sign^2
-3. Given new example x, compute p(x)...anomaly if p(x) < eta
+3. Given new example x, compute p(x)...anomaly if p(x) < epsilon    basically how far above the surface it is
+
 BUILDING ANOMALY DETECTION SYSTEM
+We need to be able to valuate our anomally detection system: by using some labeled data of anomalous and non-anomalous (y=0 if normal, y=1 if anomalous)
+Assume training set is non anomalous
+Example split : 60/20/20 of non anomalous, 0/50/50 anomalous
+To Evaluate:
+1. Fit model on training set
+2. predict y on CV/test set
+3. evaluate: true pos, false pos, false neg, true neg; precision/recall; F1-score .. you can't use calssification because the accuracy will be skewed when anomalies are rare
+4. can also use CV set to choose param epsilon
+Sometimes it might be better to use supervised learning...
+choose anomaly detection when:
+- anomalies are rare
+- there can be many types of anomalies and it's hard for any algorithm to learn from positive examples what the anomalies look like
+- future anomalies may look nothing like any of the anomalous examples we've seen so far
+- fraud detection, manufacturing, monitoring machines in data center
+choose supervised learning when:
+- the split is more even
+- there are enough positive examples for algorithm to get a sense of what positive examples are life, future positive examples likley to be similr to ones in the training set
+- email spam, weather prediction, cancer classification
+start by modeling p data using hist command to check if it's gaussian. If it looks asymmetrical, you can make it gaussian by ploplotting the log
+play with xpower until it looks the most gaussian
+most common problem: p(x) is comaprable for both normal and anomalous examples
+
 MULTIVARIATE GAUSSIAN DISTRIBUTION
+instead of modeling p(x1) etc separately, model all p(x) all in one go
+with sigma as the nxn covariance matrix... p(x;mu, sigma)=1/((2pi)^(n/2)*(|sigma|^.5)) * exp(-.5*(x-mu)^T * sigma^(-1)*(x-mu))
+make the values on the diagonal in the covariance matrix sigma to make an ellipse... model examples where x1, x2 take on different ranges of values
+to estimate sigma : 1/m * summ (x^i - mu)*(x^i - mu)^T
+1. fit model with estimations
+2. given a new example x, compute p(x)like above, flag anomaly if p(x) < epsilon
+relationship to original model: original model corresponds to multivariate gaussian distributions where the axes are aligned; contraining the p(x) elli just not at an angle
+
+
 PREDICTING MOVIE RATINGS
 COLLABORATIVE FILTERING
 LOW RANK MATRIX FACTORIZATION
