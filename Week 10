@@ -1,0 +1,24 @@
+GRADIENT DESCENT WITH LARGE DATASETS
+Large data sets are computationally expensive for even just one step of gradient descent. SStart by plotting a learning curve (m vs error, jtrain nd Jcv) for a range of values of m and verify that the algorithm has high variance when m is small
+batch gradient descent means looking at all training examples at once
+stochastic gradient descent is an alternative which looks at a training example, fits it, and so on... cost(theta,(xi,yi))=1/2(htheta(x^i)-y^i)^2; Jtrain(theta)=1/m summ(cost)
+    1. Randomly shuffle dataset
+    2. repeat  .. for i=1,...,m   thetaj := thetaj-alpha (htheta(x^(i))-y(i)) ( xj^(i) for j=0,...,n)
+      repeat inner loop 1-10 times
+Mini batch gradient descent is also an alternative, can be even faster than stochastic...uses b examples in each iteration
+Say b=10, m=1000
+Repeat { for i=1,11,21,31,...,991{ thetaj:=thetaj - alpha(1/10) ^i+9 sum v k=i   (htheta(x^(k))-y^(k))xj^(k) for every j=0,...,n)}}
+Outperforms stochastic when there is good vectorized implementation
+Stochastic gradient descent convergence... check if algorithm is converging, during learning, comoute cost before updating theta using (x^(i), y^(i))
+  Every ~1000 iterations, plot cost averaged over the last 100 examples
+  If the cost is increasing, use more examples or smaller alpha
+If we want theta to converge, we can slowly decrease alpha over time... usually not done though
+
+ADVANCED TOPICS
+Online learning setting.. use with continuous stream of data coming in. Update theta with (x,y) of new user, then discard that training example. Can adapt to changing user preferences
+Map reduce and data parallelism...
+map reduce is for when one machine isnt enough
+  on first machine: tempj^(1) = sum100 (htheta(x^(i))-y^(i))*xj^(i))
+  etc for rest of groups and then combine thetaj := thetj - alpha(1/400(tmpj^(1) + tempj^(2)...)etc
+  You can use when algorithm can be expressed as computing sums od functions over the training set
+  You can also use it with a singe computer with multiple processing cores to divvy up the workload
